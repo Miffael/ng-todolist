@@ -1,0 +1,27 @@
+<div class="wrap">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title">Add Todo Notice</p>
+            <form action="" (submit)="$event.preventDefault()">
+              <div class="row justify-content-center">
+                <div class="col-12 col-sm-9">
+                  <div class="form-group">
+                    <input type="text" class="form-control" #noticeText name="noticeText" (keyup)=" checkKeyEnter($event) ? addNotice(noticeText.value) : false">
+                  </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                  <div class="action">
+                    <button class="btn btn-primary" type="button" (click)="addNotice(noticeText.value);">Add</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
