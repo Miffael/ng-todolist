@@ -1,0 +1,25 @@
+@import 'variables';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+.body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.header {
+  min-height: 64px;
+  padding: 12px 20px;
+  background-color: #1976d2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+}
+
+.wrap {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 10px 0;
+}
