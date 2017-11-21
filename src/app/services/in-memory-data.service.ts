@@ -7,6 +7,6 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 export class InMemoryDataService implements InMemoryDbService{
   createDb() {
     const notices: Notice[] = Notices;
-    return notices;
+    return {notices};
   }
 }

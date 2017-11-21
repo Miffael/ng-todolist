@@ -7,6 +7,7 @@ import { InMemoryDataService } from './services/in-memory-data.service';
 import { AppComponent } from './app.component';
 import { ListFormComponent } from './components/list-form/list-form.component';
 import { TopMenuComponent } from './components/top-menu/top-menu.component';
+import {NoticeService} from './services/notice.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { TopMenuComponent } from './components/top-menu/top-menu.component';
       InMemoryDataService, { dataEncapsulation: false }
     )
   ],
-  providers: [],
+  providers: [NoticeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
