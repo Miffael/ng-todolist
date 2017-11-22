@@ -18,10 +18,24 @@ export class NoticeService {
       status: 0
     };
     this.notices.push(notice as Notice);
+    this.noticeUpdate.next(this.notices)
   }
 
   toggleStatus(index: number): void {
     this.notices[index].status = this.notices[index].status ? 0 : 1;
+    this.noticeUpdate.next(this.notices);
+  }
+
+  toggleAll(): void {
+    const countComplite = this.notices.reduce( function (countComplete, item): any {
+      return item.status === 0 ? ++countComplete : countComplete;
+    }, 0);
+    if (countComplite) {
+      this.notices.map(item => {item.status = 1;});
+    } else {
+      this.notices.map(item => {item.status = 0;});
+    }
+    this.noticeUpdate.next(this.notices);
   }
 
   removeNotice(index: number): void {
