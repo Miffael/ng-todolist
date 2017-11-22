@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let notice of notices" [class.complited]="notice.status">
+          <li class="list-group-item" *ngFor="let notice of shownNotices" [class.complited]="notice.status">
             <div class="row justify-content-center">
               <div class="col-1">
                 <button class="btnIcon" (click)="toggleStatus(notice)">
@@ -24,5 +24,35 @@
         </ul>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="wrap" *ngIf="notices.length">
+  <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-4">
+              <div class="counter">
+                {{notices.length}} item left
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="form-group">
+                <button (click)="setFilter('all')" [class.selected]="shownStatus !== 'completed' && shownStatus !== 'active'" class="btn btn-primary">
+                  All
+                </button>
+
+                <button (click)="setFilter('active')"  [class.selected]="shownStatus === 'active'" class="btn btn-primary">
+                  Active
+                </button>
+                <button (click)="setFilter('completed')"  [class.selected]="shownStatus === 'completed'" class="btn btn-primary">
+                  Complited
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
