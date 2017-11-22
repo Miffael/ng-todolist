@@ -41,4 +41,9 @@ export class NoticeService {
   removeNotice(index: number): void {
     this.notices.splice(index, 1);
   }
+
+  clearCompleted(): void {
+    this.notices = this.notices.filter(notice => notice.status !== 1);
+    this.noticeUpdate.next(this.notices);
+  }
 }

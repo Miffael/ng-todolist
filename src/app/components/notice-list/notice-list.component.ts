@@ -51,6 +51,10 @@ export class NoticeListComponent implements OnInit {
     }
   }
 
+  clearCompleted(): void {
+    this.noticeService.clearCompleted();
+  }
+
   ngOnInit() {
     this.noticeService.noticeUpdate.subscribe( notices => {
       this.notices = notices;
