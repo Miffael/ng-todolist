@@ -12,6 +12,7 @@ export class NoticeListComponent implements OnInit {
   notices: Notice[];
   shownNotices: Notice[];
   shownStatus: string;
+  countActiceNotices: number;
 
   constructor(
     private noticeService: NoticeService
@@ -55,10 +56,15 @@ export class NoticeListComponent implements OnInit {
     this.noticeService.clearCompleted();
   }
 
+  counterActiveNotices(): void {
+    this.countActiceNotices = this.notices.filter(notice => notice.status == 0).length;
+  }
+
   ngOnInit() {
     this.noticeService.noticeUpdate.subscribe( notices => {
       this.notices = notices;
       this.setFilter(this.shownStatus);
+      this.counterActiveNotices();
     });
   }
 }
