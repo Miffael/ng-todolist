@@ -3,8 +3,23 @@
     <div class="row">
       <div class="col-12">
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let notice of notices">
-            {{notice.text}}
+          <li class="list-group-item" *ngFor="let notice of notices" [class.complited]="notice.status">
+            <div class="row justify-content-center">
+              <div class="col-1">
+                <button class="btnIcon" (click)="toggleStatus(notice)">
+                  <span class="fa fa-circle-o" *ngIf="!notice.status"></span>
+                  <span class="fa fa-check-circle-o" *ngIf="notice.status"></span>
+                </button>
+              </div>
+              <div class="col-10">
+                {{notice.text}}
+              </div>
+              <div class="col-1">
+                <button class="btnIcon" (click)="removeNotice(notice)">
+                  <span class="fa fa-times"></span>
+                </button>
+              </div>
+            </div>
           </li>
         </ul>
       </div>

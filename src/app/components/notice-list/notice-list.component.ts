@@ -15,10 +15,17 @@ export class NoticeListComponent implements OnInit {
     private noticeService: NoticeService
   ) { }
 
+  toggleStatus(notice: Notice): void {
+    this.noticeService.toggleStatus(this.notices.indexOf(notice));
+  }
+
+  removeNotice(notice: Notice): void {
+    this.noticeService.removeNotice(this.notices.indexOf(notice));
+  }
+
   ngOnInit() {
     this.noticeService.noticeUpdate.subscribe( notices => {
       this.notices = notices;
-    })
+    });
   }
-
 }

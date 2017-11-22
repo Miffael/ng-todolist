@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import {NoticeService} from '../../services/notice.service';
 
@@ -8,23 +8,21 @@ import {NoticeService} from '../../services/notice.service';
   styleUrls: ['./list-form.component.scss']
 })
 export class ListFormComponent implements OnInit {
-  noticeText: string = '';
+  @Input() noticeText: string;
 
   constructor(private noticeService: NoticeService) { }
 
-  checkKeyEnter($event):boolean {
+  checkKeyEnter($event): boolean {
     return $event.code === 'Enter';
-  };
+  }
 
   addNotice (text: string): void {
     if (text.length) {
-      this.noticeService.addNotice(text).subscribe(notice => {
-        console.log(notice);
-      });
+      this.noticeText = '';
+      this.noticeService.addNotice(text);
     }
-  };
+  }
 
   ngOnInit() {
   }
-
 }

@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Notice } from '../model/intefaces';
-import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class NoticeService {
   notices: Notice[];
-
   noticeUpdate: BehaviorSubject<Notice[]>;
 
   constructor() {
@@ -15,13 +12,19 @@ export class NoticeService {
     this.noticeUpdate = new BehaviorSubject(this.notices);
   }
 
-  addNotice(text): Observable<Notice> {
+  addNotice(text: string): void {
     const notice = {
       text,
       status: 0
     };
     this.notices.push(notice as Notice);
-    this.noticeUpdate.next(this.notices);
-    return of (notice);
+  }
+
+  toggleStatus(index: number): void {
+    this.notices[index].status = this.notices[index].status ? 0 : 1;
+  }
+
+  removeNotice(index: number): void {
+    this.notices.splice(index, 1);
   }
 }
