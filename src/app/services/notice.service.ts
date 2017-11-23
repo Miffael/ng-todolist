@@ -15,26 +15,29 @@ export class NoticeService {
   addNotice(text: string): void {
     const notice = {
       text,
-      status: 0
+      status: 'active'
     };
     this.notices.push(notice as Notice);
-    this.noticeUpdate.next(this.notices)
-  }
-
-  toggleStatus(index: number): void {
-    this.notices[index].status = this.notices[index].status ? 0 : 1;
     this.noticeUpdate.next(this.notices);
   }
 
-  toggleAll(): void {
-    const countComplite = this.notices.reduce( function (countComplete, item): any {
-      return item.status === 0 ? ++countComplete : countComplete;
-    }, 0);
-    if (countComplite) {
-      this.notices.map(item => {item.status = 1;});
-    } else {
-      this.notices.map(item => {item.status = 0;});
+  toggleStatus(index: number, statuses: string[]): void {
+
+    const currentStatus = statuses.filter((item) => {
+      return item === this.notices[index].status;
+    })[0];
+
+    let nextStatusIndex: number = statuses.indexOf(currentStatus) + 1;
+    if (statuses.indexOf(currentStatus) === statuses.length - 1) {
+      nextStatusIndex = 0;
     }
+    this.notices[index].status = statuses[nextStatusIndex];
+    this.noticeUpdate.next(this.notices);
+  }
+
+  toggleAll(status): void {
+    console.log('toggle all');
+    this.notices.map(item => item.status = status);
     this.noticeUpdate.next(this.notices);
   }
 
@@ -43,7 +46,7 @@ export class NoticeService {
   }
 
   clearCompleted(): void {
-    this.notices = this.notices.filter(notice => notice.status !== 1);
+    this.notices = this.notices.filter(notice => notice.status !== 'completed');
     this.noticeUpdate.next(this.notices);
   }
 }

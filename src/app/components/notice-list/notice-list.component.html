@@ -3,12 +3,12 @@
     <div class="row">
       <div class="col-12">
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let notice of shownNotices" [class.complited]="notice.status">
+          <li class="list-group-item" *ngFor="let notice of shownNotices" [class.complited]="notice.status === 'completed'">
             <div class="row justify-content-center">
               <div class="col-1">
-                <button class="btnIcon" (click)="toggleStatus(notice)">
-                  <span class="fa fa-circle-o" *ngIf="!notice.status"></span>
-                  <span class="fa fa-check-circle-o" *ngIf="notice.status"></span>
+                <button class="btnIcon" (click)="toggleStatus(notice, ['active', 'completed'])">
+                  <span class="fa fa-circle-o" *ngIf="notice.status === 'active'"></span>
+                  <span class="fa fa-check-circle-o" *ngIf="notice.status === 'completed'"></span>
                 </button>
               </div>
               <div class="col-10">

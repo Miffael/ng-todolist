@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../services/notice.service';
 import { Notice } from '../../model/intefaces';
 
-
 @Component({
   selector: 'app-notice-list',
   templateUrl: './notice-list.component.html',
@@ -11,7 +10,7 @@ import { Notice } from '../../model/intefaces';
 export class NoticeListComponent implements OnInit {
   notices: Notice[];
   shownNotices: Notice[];
-  shownStatus: string;
+  shownStatus = 'all';
   countActiceNotices: number;
 
   constructor(
@@ -19,7 +18,7 @@ export class NoticeListComponent implements OnInit {
   ) { }
 
   toggleStatus(notice: Notice): void {
-    this.noticeService.toggleStatus(this.notices.indexOf(notice));
+    this.noticeService.toggleStatus(this.notices.indexOf(notice), ['active', 'completed']);
   }
 
   removeNotice(notice: Notice): void {
@@ -28,25 +27,8 @@ export class NoticeListComponent implements OnInit {
 
   setFilter(status): void {
     this.shownStatus = status;
-    switch (status) {
-      case 'active':
-        status = 0;
-        break;
-      case 'completed':
-        status = 1;
-        break;
-      default:
-        status = -1;
-        break;
-    }
-
-    if (status !== -1) {
-      this.shownNotices = this.notices.reduce( (arr, item): any => {
-        if (item.status === status) {
-          arr.push(item);
-        }
-        return arr;
-      }, []);
+    if (status !== 'all') {
+      this.shownNotices = this.notices.filter(item => item.status === status);
     } else {
       this.shownNotices = this.notices;
     }
@@ -57,7 +39,7 @@ export class NoticeListComponent implements OnInit {
   }
 
   counterActiveNotices(): void {
-    this.countActiceNotices = this.notices.filter(notice => notice.status == 0).length;
+    this.countActiceNotices = this.notices.filter(notice => notice.status === 'active').length;
   }
 
   ngOnInit() {

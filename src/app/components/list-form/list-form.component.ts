@@ -10,7 +10,7 @@ import { Notice } from '../../model/intefaces';
 })
 export class ListFormComponent implements OnInit {
   notices: Notice[];
-  hasUnckecked: boolean;
+  hasUnckecked = false;
   @Input() noticeText: string;
 
   constructor(private noticeService: NoticeService) {
@@ -26,16 +26,18 @@ export class ListFormComponent implements OnInit {
       this.noticeText = '';
       this.noticeService.addNotice(text);
     }
-    this.hasUnckecked = this.toggleAllCheck();
+    this.hasUnckecked = this.checkNotCompleted();
   }
 
   toggleAll(): void {
-    this.noticeService.toggleAll();
+    let newStatus = this.checkNotCompleted() ? 'completed' : 'active';
+    console.log(this.checkNotCompleted());
+    this.noticeService.toggleAll(newStatus);
   }
 
-  toggleAllCheck(): boolean {
+  checkNotCompleted(): boolean {
     const countUnchecked = this.notices.reduce( function (hasUnckecked, item) {
-      return (item.status === 0) ? true : hasUnckecked;
+      return (item.status !== 'completed') ? true : hasUnckecked;
     }, false);
     return countUnchecked;
   }
@@ -43,7 +45,7 @@ export class ListFormComponent implements OnInit {
   ngOnInit() {
     this.noticeService.noticeUpdate.subscribe( notices => {
       this.notices = notices;
-      this.hasUnckecked = this.toggleAllCheck();
+      this.hasUnckecked = this.checkNotCompleted();
     });
   }
 }
