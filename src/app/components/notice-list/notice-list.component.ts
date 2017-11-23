@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../services/notice.service';
-import {Notice} from '../../model/intefaces';
+import { Notice } from '../../model/intefaces';
 
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import {NoticeService} from '../../services/notice.service';
-import {Notice} from '../../model/intefaces';
+import { NoticeService } from '../../services/notice.service';
+import { Notice } from '../../model/intefaces';
 
 @Component({
   selector: 'app-list-form',
@@ -10,11 +10,11 @@ import {Notice} from '../../model/intefaces';
 })
 export class ListFormComponent implements OnInit {
   notices: Notice[];
-  hasUnckeded: boolean = false;
+  hasUnckecked: boolean;
   @Input() noticeText: string;
 
   constructor(private noticeService: NoticeService) {
-    this.notices = [] as Notice[];
+    this.notices = [];
   }
 
   checkKeyEnter($event): boolean {
@@ -26,7 +26,7 @@ export class ListFormComponent implements OnInit {
       this.noticeText = '';
       this.noticeService.addNotice(text);
     }
-    this.hasUnckeded = this.toggleAllCheck();
+    this.hasUnckecked = this.toggleAllCheck();
   }
 
   toggleAll(): void {
@@ -34,8 +34,8 @@ export class ListFormComponent implements OnInit {
   }
 
   toggleAllCheck(): boolean {
-    const countUnchecked = this.notices.reduce( function (hasUnckeded, item) {
-      return (item.status === 0) ? true : hasUnckeded;
+    const countUnchecked = this.notices.reduce( function (hasUnckecked, item) {
+      return (item.status === 0) ? true : hasUnckecked;
     }, false);
     return countUnchecked;
   }
@@ -43,7 +43,7 @@ export class ListFormComponent implements OnInit {
   ngOnInit() {
     this.noticeService.noticeUpdate.subscribe( notices => {
       this.notices = notices;
-      this.hasUnckeded = this.toggleAllCheck();
+      this.hasUnckecked = this.toggleAllCheck();
     });
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Notice } from '../model/intefaces';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class NoticeService {

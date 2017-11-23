@@ -5,13 +5,12 @@
         <div class="card">
           <div class="card-body">
             <p class="card-title">Add Todo Notice</p>
-            <form action="" (submit)="$event.preventDefault()">
               <div class="row justify-content-center align-items-center">
                 <div class="col-1">
                   <div class="form-group" *ngIf="notices.length">
                     <button (click)="toggleAll()" class="btnIcon">
-                      <span *ngIf="hasUnckeded" class="fa fa-circle-o"></span>
-                      <span *ngIf="!hasUnckeded" class="fa fa-check-circle-o"></span>
+                      <span *ngIf="hasUnckecked" class="fa fa-circle-o"></span>
+                      <span *ngIf="!hasUnckecked" class="fa fa-check-circle-o"></span>
                     </button>
                   </div>
                 </div>
@@ -26,7 +25,6 @@
                   </div>
                 </div>
               </div>
-            </form>
           </div>
         </div>
       </div>
