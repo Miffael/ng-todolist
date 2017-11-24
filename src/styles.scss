@@ -1,0 +1,26 @@
+@import 'variables';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+.body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.wrap {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+.btnIcon {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  color: #007bff;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}

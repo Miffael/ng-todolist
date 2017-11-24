@@ -1,0 +1,33 @@
+<div class="wrap">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title">Add Todo Notice</p>
+              <div class="row justify-content-center align-items-center">
+                <div class="col-1">
+                  <div class="form-group" *ngIf="notices.length">
+                    <button (click)="toggleAll()" class="btnIcon">
+                      <span *ngIf="hasUnckecked" class="fa fa-circle-o"></span>
+                      <span *ngIf="!hasUnckecked" class="fa fa-check-circle-o"></span>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-11 col-sm-8">
+                  <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="noticeText" name="noticeText" (keyup)=" checkKeyEnter($event) ? addNotice(noticeText) : false">
+                  </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                  <div class="form-group action">
+                    <button class="btn btn-primary" type="button" (click)="addNotice(noticeText);">Add</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

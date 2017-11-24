@@ -1,0 +1,16 @@
+.list-group-item {
+  &.complited {
+    opacity: 0.5;
+  }
+}
+
+.counter {
+  margin:  0 0 10px;
+}
+
+.btn {
+  &.selected {
+    background: red;
+    border-color: red;
+  }
+}
