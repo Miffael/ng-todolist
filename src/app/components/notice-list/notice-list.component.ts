@@ -43,7 +43,7 @@ export class NoticeListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.noticeService.noticeUpdate.subscribe( notices => {
+    this.noticeService.notices$.subscribe( notices => {
       this.notices = notices;
       this.setFilter(this.shownStatus);
       this.counterActiveNotices();

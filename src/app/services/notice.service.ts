@@ -4,12 +4,18 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class NoticeService {
-  notices: Notice[];
-  noticeUpdate: BehaviorSubject<Notice[]>;
+  notices$: BehaviorSubject<Notice[]>;
 
   constructor() {
-    this.notices = [] as Notice[];
-    this.noticeUpdate = new BehaviorSubject(this.notices);
+    this.notices$ = new BehaviorSubject([]);
+  }
+
+  get notices(): Notice[] {
+    return this.notices$.getValue();
+  }
+
+  set notices(next) {
+    this.notices$.next(next);
   }
 
   addNotice(text: string): void {
@@ -17,28 +23,33 @@ export class NoticeService {
       text,
       status: 'active'
     };
-    this.notices.push(notice as Notice);
-    this.noticeUpdate.next(this.notices);
+    this.notices$.next([...this.notices, notice]);
   }
 
   toggleStatus(index: number, statuses: string[]): void {
 
-    const currentStatus = statuses.filter((item) => {
-      return item === this.notices[index].status;
-    })[0];
+    if (!this.notices || !this.notices[index]) { return; }
+
+    const _status = this.notices[index].status;
+
+    const _currentStatuses = statuses.filter((item) => item === _status);
+    if (!_currentStatuses || !_currentStatuses.length) {return;}
+
+
+    const currentStatus = _currentStatuses.shift();
 
     let nextStatusIndex: number = statuses.indexOf(currentStatus) + 1;
     if (statuses.indexOf(currentStatus) === statuses.length - 1) {
       nextStatusIndex = 0;
     }
+
     this.notices[index].status = statuses[nextStatusIndex];
-    this.noticeUpdate.next(this.notices);
+    this.notices$.next(this.notices);
   }
 
   toggleAll(status): void {
-    console.log('toggle all');
     this.notices.map(item => item.status = status);
-    this.noticeUpdate.next(this.notices);
+    this.notices$.next(this.notices);
   }
 
   removeNotice(index: number): void {
@@ -47,6 +58,6 @@ export class NoticeService {
 
   clearCompleted(): void {
     this.notices = this.notices.filter(notice => notice.status !== 'completed');
-    this.noticeUpdate.next(this.notices);
+    this.notices$.next(this.notices);
   }
 }
