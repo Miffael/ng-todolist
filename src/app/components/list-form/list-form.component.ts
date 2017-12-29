@@ -31,19 +31,20 @@ export class ListFormComponent implements OnInit {
 
   toggleAll(): void {
     let newStatus = this.checkNotCompleted() ? 'completed' : 'active';
-    console.log(this.checkNotCompleted());
     this.noticeService.toggleAll(newStatus);
   }
 
   checkNotCompleted(): boolean {
-    const countUnchecked = this.notices.reduce( function (hasUnckecked, item) {
+    const countUnchecked = this.notices.reduce( function (hasUnckecked = false, item) {
+      console.log(item)
       return (item.status !== 'completed') ? true : hasUnckecked;
     }, false);
     return countUnchecked;
   }
 
   ngOnInit() {
-    this.noticeService.noticeUpdate.subscribe( notices => {
+    this.noticeService.notices$.subscribe( notices => {
+      console.log(notices)
       this.notices = notices;
       this.hasUnckecked = this.checkNotCompleted();
     });

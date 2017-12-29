@@ -3,21 +3,25 @@
     <div class="row">
       <div class="col-12">
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let notice of shownNotices" [class.complited]="notice.status === 'completed'">
-            <div class="row justify-content-center">
-              <div class="col-1">
-                <button class="btnIcon" (click)="toggleStatus(notice, ['active', 'completed'])">
-                  <span class="fa fa-circle-o" *ngIf="notice.status === 'active'"></span>
-                  <span class="fa fa-check-circle-o" *ngIf="notice.status === 'completed'"></span>
-                </button>
-              </div>
-              <div class="col-10">
-                {{notice.text}}
-              </div>
-              <div class="col-1">
-                <button class="btnIcon" (click)="removeNotice(notice)">
-                  <span class="fa fa-times"></span>
-                </button>
+          <li class="list-group-item"
+              *ngFor="let notice of notices | async"
+              [class.complited]="notice.status === 'completed'">
+            <div class="item" *ngIf="shownStatus === 'all' || shownStatus === notice.status">
+              <div class="row justify-content-center" >
+                <div class="col-1">
+                  <button class="btnIcon" (click)="toggleStatus(notice, ['active', 'completed'])">
+                    <span class="fa fa-circle-o" *ngIf="notice.status === 'active'"></span>
+                    <span class="fa fa-check-circle-o" *ngIf="notice.status === 'completed'"></span>
+                  </button>
+                </div>
+                <div class="col-10">
+                  {{notice.text}}
+                </div>
+                <div class="col-1">
+                  <button class="btnIcon" (click)="removeNotice(notice)">
+                    <span class="fa fa-times"></span>
+                  </button>
+                </div>
               </div>
             </div>
           </li>
@@ -27,7 +31,7 @@
   </div>
 </div>
 
-<div class="wrap" *ngIf="notices.length">
+<div class="wrap">
   <div class="container-fluid">
       <div class="card">
         <div class="card-body">
