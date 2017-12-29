@@ -31,10 +31,10 @@ export class NoticeService {
     this.notices$.next([...this.notices, notice]);
   }
 
-  toggleStatus(index: number, statuses: string[]): void {
+  toggleStatus(notice: Notice, statuses: string[]): void {
+    const index = this.notices$.getValue().indexOf(notice);
+
     // read above
-    // if (!this.notices || !this.notice[index]) {return;}
-    // const _status = this.notices[index].status;
     if (!this.notices || !this.notices[index]) { return; }
 
     const _status = this.notices[index].status;
